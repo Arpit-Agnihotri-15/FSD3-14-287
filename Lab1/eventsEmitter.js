@@ -22,9 +22,9 @@ task.off("exit"(name) =>{
 
 
 
-task.emit('greet','Arnav Chauhan');
-//task.emit('greet','arnav');
-//task.emit('greet','arnav chauhan');
+task.emit('greet','Arpit Agnihotri');
+//task.emit('greet','arpit');
+//task.emit('greet','arpit agnihotri');
 //task.emit("exit",'Manager');
 
 const shuttingDown=(name)=>
