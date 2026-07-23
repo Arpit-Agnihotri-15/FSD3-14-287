@@ -27,7 +27,7 @@ main();
 //In asynchronous we use event loop to manage the call stack 
 
 //Asynchronous using times
-//1. set TimeOut
-//2. set Immediate
-//3. process.next Tick
-//4. set Interval
+//1. setTimeOut
+//2. setImmediate
+//3. process.nextTick
+//4. setInterval
