@@ -1,6 +1,6 @@
-import { EventEmitter } from "node:events";
+import { EventEmitter } from "node:events";   //importing from node's event package 
 
-const task = new EventEmitter() ;
+const task = new EventEmitter() ;   //object created for task
 
 const sayHi = (name) =>{
     console.log(`loggedin ${name}`);

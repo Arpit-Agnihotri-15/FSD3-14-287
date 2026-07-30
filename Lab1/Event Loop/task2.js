@@ -1,6 +1,7 @@
-import fs from "fs/promises";
+import { log } from 'console';
+import fs from "fs/promises";  //fs:performing operations related to file
 
-const writeData = async () => {
+const writeData = async () => {   //only async function can use await
     try {
         console.log("about to write....");
         await fs.writeFile('stud.txt', "Name: Arpit Agnihotri");
