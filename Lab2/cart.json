@@ -3,12 +3,12 @@
     "id": 234,
     "name": "samsung",
     "price": 35000,
-    "qty": 4
+    "qty": 3
   },
   {
     "id": 3,
     "name": "car",
     "price": 500000,
-    "qty": 10
+    "qty": 2
   }
 ]
