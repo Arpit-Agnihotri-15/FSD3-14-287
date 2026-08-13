@@ -1,6 +1,7 @@
 import readLine from "readline/promises";
 import { stdin, stdout } from "process";
 import { readFile, writeFile } from "fs/promises";
+import { log } from "console";
 
 // Database using file starts
 const FILE = "cart.json";
@@ -49,6 +50,21 @@ const displayCart = async () => {
     console.log(`Total Payable Amount Rs. ${total}`);
 };
 
+const removeProduct = async (pid) => {
+    const cart = await getCart();
+    // const isFoundInCart = cart.find((item) => item.id === pid);
+    let x = cart.length;
+    const newProducts = cart.filter((item) => item.id !== pid);
+    let y = newProducts.length;
+    if(x > y){
+        console.log(`Product with id ${pid} is removed from cart`);
+        await saveCart(newProducts);
+    }
+    else{
+        console.log(`Product with id ${pid} not found`);
+    }
+};
+
 const main = async () => {
     let choice;
     const cin = readLine.createInterface({
@@ -89,7 +105,10 @@ const main = async () => {
                 break;
 
             case 3:
-                console.log("Remove Product");
+                let pid = await cin.question(
+                    "Enter the id of product to remove: "
+                );
+                await removeProduct(Number(pid));               
                 break;
 
             case 4:
