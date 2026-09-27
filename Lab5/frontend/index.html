@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shin-chan World | PRG2</title>
+<style>
+:root{
+  --red:#e53935;--yellow:#ffd83d;--blue:#179bd7;--ink:#202020;--paper:#fffaf0;
+  --pink:#ff8fa3;--green:#61c454;--shadow:0 14px 40px rgba(32,32,32,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:
+radial-gradient(circle at 10% 10%,#fff 0 8%,transparent 9%),
+radial-gradient(circle at 90% 30%,#fff 0 7%,transparent 8%),var(--paper);line-height:1.6}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.container{width:min(1180px,92%);margin:auto}
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:3px solid var(--ink)}
+.nav-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:1000}
+.brand-mark{width:46px;height:46px;border:3px solid var(--ink);border-radius:14px;background:var(--yellow);display:grid;place-items:center;font-size:25px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-4deg)}
+.brand span{font-size:1.05rem}
+.links{display:flex;gap:8px;align-items:center}
+.links a,.nav-btn{padding:10px 14px;border:2px solid transparent;border-radius:999px;font-weight:800}
+.links a:hover,.links a.active{background:var(--yellow);border-color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.nav-btn{cursor:pointer;background:#fff;border-color:var(--ink)}
+.hero{padding:64px 0 40px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
+.kicker{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;border:3px solid var(--ink);padding:7px 13px;border-radius:999px;font-weight:900;box-shadow:4px 4px 0 var(--ink)}
+h1{font-size:clamp(3rem,7vw,6.4rem);line-height:.9;letter-spacing:-.07em;margin:18px 0}
+h1 .red{color:var(--red);text-shadow:3px 3px 0 var(--ink)}
+.hero p{font-size:1.1rem;max-width:650px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:3px solid var(--ink);padding:12px 18px;border-radius:14px;font-weight:950;cursor:pointer;box-shadow:5px 5px 0 var(--ink);transition:.18s transform,.18s box-shadow}
+.btn:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--ink)}
+.btn.primary{background:var(--red);color:#fff}.btn.yellow{background:var(--yellow)}.btn.blue{background:var(--blue);color:#fff}
+.hero-card{position:relative;border:4px solid var(--ink);border-radius:34px;overflow:hidden;box-shadow:12px 12px 0 var(--ink);background:#fff}
+.hero-card img{width:100%;height:460px;object-fit:cover}
+.hero-label{position:absolute;left:18px;bottom:18px;background:#fff;border:3px solid var(--ink);border-radius:16px;padding:10px 14px;font-weight:950;box-shadow:4px 4px 0 var(--ink)}
+.marquee{border-block:3px solid var(--ink);background:var(--yellow);overflow:hidden;white-space:nowrap;font-weight:1000}
+.marquee div{display:inline-block;padding:10px 0;animation:slide 20s linear infinite}
+@keyframes slide{to{transform:translateX(-30%)}}
+.section{padding:76px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:30px}
+.section-head h2{font-size:clamp(2rem,4vw,3.5rem);line-height:1}
+.section-head p{max-width:600px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:22px;overflow:hidden;box-shadow:7px 7px 0 var(--ink);transition:.2s transform}
+.card:hover{transform:translateY(-6px) rotate(-.5deg)}
+.card-img{height:210px;overflow:hidden;background:#eee}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.card-body{padding:17px}.tag{display:inline-block;font-size:.78rem;font-weight:900;background:#eef6ff;border:2px solid var(--ink);padding:3px 8px;border-radius:999px;margin-bottom:8px}
+.card h3{font-size:1.25rem;margin-bottom:5px}
+.feature{display:grid;grid-template-columns:.85fr 1.15fr;gap:25px;align-items:stretch}
+.feature-img{border:3px solid var(--ink);border-radius:25px;overflow:hidden;box-shadow:8px 8px 0 var(--ink);min-height:420px}
+.feature-img img{height:100%;width:100%;object-fit:cover}
+.panel{background:#fff;border:3px solid var(--ink);border-radius:25px;padding:30px;box-shadow:8px 8px 0 var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0}
+.chip{border:2px solid var(--ink);background:var(--yellow);border-radius:999px;padding:7px 11px;font-weight:850}
+.interactive{background:linear-gradient(135deg,#fff 0%,#fff1a7 100%);border:4px solid var(--ink);border-radius:30px;padding:30px;box-shadow:10px 10px 0 var(--ink)}
+.joke-box{font-size:1.35rem;font-weight:850;min-height:90px;display:grid;place-items:center;text-align:center;padding:20px;background:#fff;border:3px dashed var(--ink);border-radius:18px}
+.quiz-options{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:15px}
+.option{border:3px solid var(--ink);background:#fff;padding:13px;border-radius:14px;font-weight:850;cursor:pointer;text-align:left}
+.option:hover{background:#eaf8ff}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gallery-item{position:relative;height:280px;border:3px solid var(--ink);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--ink)}
+.gallery-item img{height:100%;width:100%;object-fit:cover;transition:.3s}
+.gallery-item:hover img{transform:scale(1.06)}
+.gallery-caption{position:absolute;left:10px;bottom:10px;background:#fff;border:2px solid var(--ink);padding:6px 9px;border-radius:10px;font-weight:900}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.stat{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:22px;text-align:center;box-shadow:5px 5px 0 var(--ink)}
+.stat strong{font-size:2.3rem;display:block;color:var(--red)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}
+label{font-weight:900}input,select,textarea{font:inherit;border:3px solid var(--ink);border-radius:13px;padding:12px;background:#fff;outline:none}
+input:focus,select:focus,textarea:focus{box-shadow:4px 4px 0 var(--blue)}
+textarea{min-height:150px;resize:vertical}
+.moods{display:flex;gap:10px;flex-wrap:wrap}.mood{border:2px solid var(--ink);padding:8px 13px;border-radius:999px;background:#fff;cursor:pointer;font-size:1.1rem}.mood.selected{background:var(--yellow);box-shadow:3px 3px 0 var(--ink)}
+.success{display:none;margin-top:20px;padding:18px;border:3px solid var(--ink);border-radius:16px;background:#d9ffd2;font-weight:850}
+.page-hero{padding:55px 0;background:linear-gradient(120deg,var(--yellow),#fff);border-bottom:3px solid var(--ink)}
+.page-hero h1{font-size:clamp(3rem,6vw,5.5rem)}
+.timeline{border-left:4px solid var(--ink);margin-left:12px;padding-left:25px;display:grid;gap:24px}.timeline article{position:relative;background:#fff;border:3px solid var(--ink);border-radius:18px;padding:20px;box-shadow:5px 5px 0 var(--ink)}.timeline article:before{content:"";position:absolute;left:-38px;top:20px;width:18px;height:18px;border:3px solid var(--ink);background:var(--red);border-radius:50%}
+.footer{margin-top:50px;border-top:4px solid var(--ink);background:#202020;color:#fff;padding:35px 0}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}.footer a{text-decoration:underline}.small{font-size:.88rem;opacity:.8}
+.toast{position:fixed;right:20px;bottom:20px;z-index:2000;background:var(--ink);color:#fff;padding:13px 16px;border-radius:13px;border:3px solid #fff;box-shadow:6px 6px 0 var(--red);transform:translateY(130px);transition:.25s}.toast.show{transform:translateY(0)}
+@media(max-width:900px){.hero-grid,.feature{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr}.hero-card img{height:350px}}
+@media(max-width:620px){.links a{display:none}.grid,.gallery,.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.quiz-options{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}h1{font-size:3.4rem}.hero{padding-top:35px}.section{padding:55px 0}.panel,.interactive{padding:20px}}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="/"><div class="brand-mark">🖍️</div><span>SHIN-CHAN<br>WORLD</span></a>
+    <div class="links">
+      <a class="active" href="/">Home</a>
+      <a class="" href="/about.html">About</a>
+      <a class="" href="/enquiry.html">Enquiry</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="kicker">⚡ Welcome to Kasukabe</span>
+      <h1>CRAZY.<br><span class="red">FUNNY.</span><br>SHIN-CHAN.</h1>
+      <p>A colorful interactive fan website packed with Shin-chan, Shiro, Himawari, the Kasukabe Defence Force, Action Kamen, Buri Buri Zaemon, Chocobi and more.</p>
+      <div class="actions">
+        <a class="btn primary" href="#characters">Meet the gang</a>
+        <button class="btn yellow" data-toast="Buri Buri Zaemon says: pay my rescue fee! 💰">Summon Buri Buri</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <img src="https://gakuensai-station.com/assets/uploads/ol005-740x740.jpg" alt="Shin-chan, Action Kamen and Buri Buri Zaemon">
+      <div class="hero-label">🦸 Action Kamen + 🐷 Buri Buri + 🖍️ Shin-chan</div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee"><div>🖍️ SHIN-CHAN • 🍫 CHOCOBI • 🐶 SHIRO • 🌻 HIMAWARI • 🦸 ACTION KAMEN • 🐷 BURI BURI ZAEMON • 🤖 KANTAM ROBO • 🛡️ KASUKABE DEFENCE FORCE • </div></div>
+
+<section class="section" id="characters">
+  <div class="container">
+    <div class="section-head"><div><span class="tag">THE UNIVERSE</span><h2>Meet the chaos crew.</h2></div><p>Actual Shin-chan artwork is used instead of generic stock children. Hover the cards, click the buttons and explore.</p></div>
+    <div class="grid">
+      <article class="card"><div class="card-img"><img src="https://prcdn.freetls.fastly.net/release_image/63373/118/63373-118-2745c2afca94f947349ea6f3339d2fc7-1409x1178.jpg?auto=webp&fit=bounds&format=jpeg&height=1350&quality=85%2C65&width=1950" alt="Shin-chan and friends"></div><div class="card-body"><span class="tag">PROTAGONIST</span><h3>Shin-chan</h3><p>Five-year-old chaos specialist and Chocobi enthusiast.</p></div></article>
+      <article class="card"><div class="card-img"><img src="https://i1.ruliweb.com/img/25/07/11/197f5fa29f959b1e3.jpg" alt="Himawari and Shiro"></div><div class="card-body"><span class="tag">FAMILY</span><h3>Himawari & Shiro</h3><p>The shiny-object hunter and the family's responsible dog.</p></div></article>
+      <article class="card"><div class="card-img"><img src="https://m.media-amazon.com/images/S/pv-target-images/3b028f6f5c612c7bdca5324fd048d3461ec858cc6dd79c78333b9ccf9fad3d1d._CR0%2C0%2C1920%2C1920_SX1440_CR0%2C70%2C1440%2C1280_.jpg" alt="Kasukabe Defence Force friends"></div><div class="card-body"><span class="tag">FRIENDS</span><h3>Kazama • Nene • Masao • Bo-chan</h3><p>The squad that somehow survives Shin's plans.</p></div></article>
+      <article class="card"><div class="card-img"><img src="https://gakuensai-station.com/assets/uploads/ol005-740x740.jpg" alt="Action Kamen and Buri Buri Zaemon"></div><div class="card-body"><span class="tag">HEROES</span><h3>Action Kamen & Buri Buri</h3><p>Heroic poses, questionable rescue fees and maximum drama.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container feature">
+    <div class="feature-img"><img src="https://img-cdn.theqoo.net/IbUewA.jpg" alt="Himawari riding Shiro"></div>
+    <div class="panel">
+      <span class="tag">NOHARA FAMILY</span>
+      <h2>Home is where the madness is.</h2>
+      <p>From Misae's legendary scolding to Hiroshi's salaryman struggles, the Nohara household turns ordinary days into full-scale comedy episodes.</p>
+      <div class="chips"><span class="chip">👨 Hiroshi</span><span class="chip">👩 Misae</span><span class="chip">🖍️ Shin</span><span class="chip">🌻 Himawari</span><span class="chip">🐶 Shiro</span></div>
+      <button class="btn blue" data-toast="Misae is looking for Shin-chan... RUN! 🏃">Start family emergency</button>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><span class="tag">INTERACTIVE ZONE</span><h2>Shin's joke machine.</h2></div></div>
+    <div class="interactive">
+      <div class="joke-box" id="jokeText">Press the button. Shin-chan has something to say...</div>
+      <div class="actions"><button class="btn primary" id="jokeBtn">😂 Tell me a joke</button><button class="btn yellow" data-chocobi>🍫 Give Shin Chocobi</button><span class="chip">Chocobi: <b id="chocobiCount">0</b></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><span class="tag">QUIZ</span><h2>How well do you know Shin-chan?</h2></div><p id="qScore">Score: 0</p></div>
+    <div class="panel"><h3 id="qText">Loading...</h3><div class="quiz-options" id="qOptions"></div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><span class="tag">GALLERY</span><h2>Moments from the world.</h2></div></div>
+    <div class="gallery">
+      <div class="gallery-item"><img src="https://gakuensai-station.com/assets/uploads/ol005-740x740.jpg" alt="Shin-chan Action Kamen Buri Buri"><span class="gallery-caption">Action Kamen × Buri Buri</span></div>
+      <div class="gallery-item"><img src="https://prcdn.freetls.fastly.net/release_image/63373/118/63373-118-2745c2afca94f947349ea6f3339d2fc7-1409x1178.jpg?auto=webp&fit=bounds&format=jpeg&height=1350&quality=85%2C65&width=1950" alt="Shin-chan and Kasukabe friends"><span class="gallery-caption">Kasukabe Squad</span></div>
+      <div class="gallery-item"><img src="https://i1.ruliweb.com/img/25/07/11/197f5fa29f959b1e3.jpg" alt="Himawari and Shiro"><span class="gallery-caption">Himawari + Shiro</span></div>
+      <div class="gallery-item"><img src="https://m.media-amazon.com/images/S/pv-target-images/3b028f6f5c612c7bdca5324fd048d3461ec858cc6dd79c78333b9ccf9fad3d1d._CR0%2C0%2C1920%2C1920_SX1440_CR0%2C70%2C1440%2C1280_.jpg" alt="Kazama Nene Masao Bo-chan"><span class="gallery-caption">The Defence Force</span></div>
+      <div class="gallery-item"><img src="https://img2.animatetimes.com/2019/04/5cb55d63eb497_336169d6dfca9a4fe9c2af1d1ae7ff58.jpg" alt="Hiroshi and Misae"><span class="gallery-caption">Hiroshi + Misae</span></div>
+      <div class="gallery-item"><img src="https://img-cdn.theqoo.net/IbUewA.jpg" alt="Himawari Shiro scene"><span class="gallery-caption">Tiny chaos</span></div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div><h3>🖍️ Shin-chan World</h3><p class="small">A college PRG2 fan project celebrating the chaotic universe of Crayon Shin-chan.</p></div>
+    <div><b>Explore</b><p><a href="/">Home</a></p><p><a href="/about.html">Characters</a></p><p><a href="/enquiry.html">Enquiry</a></p></div>
+    <div><b>Image sources</b><p class="small">Web-sourced Shin-chan artwork is used as external image content for this educational fan project. Rights remain with their respective owners.</p></div>
+  </div>
+</footer>
+<div id="toast" class="toast"></div>
+<script>
+const toast = (msg) => {
+  const el = document.querySelector("#toast");
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add("show");
+  setTimeout(() => el.classList.remove("show"), 2200);
+};
+
+document.querySelectorAll("[data-toast]").forEach(btn => {
+  btn.addEventListener("click", () => toast(btn.dataset.toast));
+});
+
+const jokes = [
+  "Shin-chan: “Mummy, I need ₹100.” Misae: “Why?” Shin-chan: “For emergency Chocobi.”",
+  "Kazama studies for 3 hours. Shin-chan studies his own face in the mirror for 3 seconds.",
+  "Buri Buri Zaemon: “I will save you!” Also Buri Buri Zaemon: “First, where is my rescue fee?”",
+  "Hiroshi: “Why are my socks missing?” Shin-chan: “They joined a better family.”",
+  "Misae: “Shin-chan, behave!” Shin-chan: “I am behaving... unusually.”",
+  "Bo-chan found a rock. Everyone: “Nice!” Bo-chan: “It has a story.”",
+  "Nene: “Let's play house.” Shin-chan: “I volunteer to be the rich uncle.”",
+  "Shiro silently watches the chaos like the only responsible adult in Kasukabe.",
+  "Himawari sees something shiny. The mission has officially begun.",
+  "Action Kamen arrives. Shin-chan: “Hero first, autograph later!”",
+  "Masao gets scared. Shin-chan gets excited. Bo-chan remains... Bo-chan.",
+  "Chocobi is not a snack. According to Shin-chan, it is a lifestyle."
+];
+
+const jokeText = document.querySelector("#jokeText");
+const jokeBtn = document.querySelector("#jokeBtn");
+if (jokeBtn) {
+  jokeBtn.addEventListener("click", () => {
+    const joke = jokes[Math.floor(Math.random() * jokes.length)];
+    jokeText.textContent = joke;
+    toast("Shin-chan approved 😂");
+  });
+}
+
+const quizData = [
+  {q:"Who is Shin-chan's loyal white dog?", a:"Shiro", opts:["Kazama","Shiro","Masao","Hiroshi"]},
+  {q:"Who is famous for the Chocobi obsession?", a:"Shin-chan", opts:["Shin-chan","Bo-chan","Nene","Misae"]},
+  {q:"Who is Shin-chan's superhero idol?", a:"Action Kamen", opts:["Kantam Robo","Action Kamen","Buri Buri Zaemon","Kazama"]},
+  {q:"Who loves shiny things?", a:"Himawari", opts:["Misae","Nene","Himawari","Masao"]}
+];
+let qIndex = 0, score = 0;
+const qText = document.querySelector("#qText");
+const qOptions = document.querySelector("#qOptions");
+const qScore = document.querySelector("#qScore");
+function renderQuiz(){
+  if(!qText || !qOptions) return;
+  const item=quizData[qIndex];
+  qText.textContent=item.q;
+  qOptions.innerHTML=item.opts.map(x=>`<button class="option" data-answer="${x}">${x}</button>`).join("");
+  qOptions.querySelectorAll(".option").forEach(b=>b.addEventListener("click",()=>{
+    if(b.dataset.answer===item.a){score++;toast("Correct! 🎉")}else toast(`Answer: ${item.a}`);
+    qIndex=(qIndex+1)%quizData.length;
+    if(qScore) qScore.textContent=`Score: ${score}`;
+    renderQuiz();
+  }));
+}
+renderQuiz();
+
+let chocobi=0;
+const chocobiCount=document.querySelector("#chocobiCount");
+document.querySelectorAll("[data-chocobi]").forEach(b=>b.addEventListener("click",()=>{
+  chocobi++;
+  if(chocobiCount) chocobiCount.textContent=chocobi;
+  toast("🍫 Chocobi collected!");
+}));
+
+document.querySelectorAll(".mood").forEach(m=>m.addEventListener("click",()=>{
+  document.querySelectorAll(".mood").forEach(x=>x.classList.remove("selected"));
+  m.classList.add("selected");
+}));
+
+const form=document.querySelector("#fanForm");
+if(form){
+  form.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    document.querySelector("#success").style.display="block";
+    form.reset();
+    document.querySelectorAll(".mood").forEach(x=>x.classList.remove("selected"));
+    toast("Message sent to Kasukabe HQ 📮");
+  });
+}
+
+
+</script>
+</body>
+</html>
