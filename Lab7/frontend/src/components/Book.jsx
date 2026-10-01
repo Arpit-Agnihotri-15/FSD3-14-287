@@ -1,4 +1,4 @@
-
+import React from "react";
 export default function Book(props) {
   {/*console.log(props);*/}
   const{bname, price, quantity, rating, picUrl} = props.book;
@@ -41,4 +41,5 @@ export default function Book(props) {
     </div>
   );
 }
+
 
