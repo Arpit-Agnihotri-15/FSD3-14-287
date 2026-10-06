@@ -141,3 +141,5 @@ All CSS properties must use camelCase, for example `textAlign`.
 </h4>
 ```
 
+* app.jsx should have minimum code
+

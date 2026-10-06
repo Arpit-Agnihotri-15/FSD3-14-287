@@ -1,5 +1,10 @@
 import Book from './components/Book';
 import Pen from './components/Pen';
+import Fruit from './components/Fruit';
+import { books } from './data/books';
+import { pens } from './data/pens';
+
+{/*
 
 const b1 = {
   picUrl: "https://m.media-amazon.com/images/I/81q77Q39nEL._AC_UF1000,1000_QL80_.jpg",
@@ -33,21 +38,26 @@ const p2 = {
   rating: 4.9,
 };
 
+*/}
 
 export default function App() {
   return (
     <>
       <h1><u>Online Book Store</u></h1>
       <div className="container">
-        <Book book={b1} />
-        <Book book={b2} />
-        <Book book={b1} />
-        <Book book={b2} />
+        <Book book={books[0]} />
+        <Book book={books[1]} />
+        <Book book={books[0]} />
+        <Book book={books[1]} />
     </div>
     <h1><u>Online Pen Store</u></h1>
     <div className="container">
-        <Pen pen={p1} />
-        <Pen pen={p2} />
+        <Pen pen={pens[0]} />
+        <Pen pen={pens[1]} />
+    </div>
+    <h1><u>Online Fruit Store</u></h1>
+    <div className="container">
+        <Fruit />
     </div>
     </>
   );
