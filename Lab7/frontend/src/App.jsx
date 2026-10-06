@@ -1,8 +1,10 @@
 import Book from './components/Book';
 import Pen from './components/Pen';
 import Fruit from './components/Fruit';
+import Event from './components/Event';
 import { books } from './data/books';
 import { pens } from './data/pens';
+
 
 {/*
 
@@ -59,6 +61,7 @@ export default function App() {
     <div className="container">
         <Fruit />
     </div>
+    <Event />
     </>
   );
 }

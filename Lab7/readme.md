@@ -142,4 +142,5 @@ All CSS properties must use camelCase, for example `textAlign`.
 ```
 
 * app.jsx should have minimum code
+* By default button in HTML is Submit Button.
 
