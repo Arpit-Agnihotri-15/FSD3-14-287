@@ -144,3 +144,25 @@ All CSS properties must use camelCase, for example `textAlign`.
 * app.jsx should have minimum code
 * By default button in HTML is Submit Button.
 
+## add tailwind to exisiting react project
+1. open terminal and goto project frontend folder.
+2. install tailwind by
+    `npm install tailwindcss @tailwindcss/vite`
+3. open vite.config.js
+4. import `import tailwindcss from '@tailwindcss/vite'` in first line
+5. add 'tailwindcss()' after react
+6. the file should look like this 
+```
+    import react from '@vitejs/plugin-react'
+    import tailwindcss from '@tailwindcss/vite'
+    import { defineConfig } from 'vite'
+
+    // https://vite.dev/config/
+    export default defineConfig({
+        plugins: [react(), tailwindcss()],
+    }) 
+```
+7. open src/index.css and remove all contents, then add below lines.
+    `@import "tailwindcss";`
+
+

@@ -5,7 +5,7 @@ const MyButton = () => {
         alert("Button Clicked!");
     }
     return <button
-        style = {{height: "50px", width: "100px"}}
+        className = "bg-black text-white rounded p-3"
         onClick = {handleClick}> 
             Click Me
         </button>;
